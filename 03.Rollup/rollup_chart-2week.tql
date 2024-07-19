@@ -1,0 +1,29 @@
+SQL(`
+select to_char(rollup('week', 2, time, '2022-07-01'), 'YYYY-MM-DD') as time, avg(value) from machroll
+where name = 'pneumatic' and time between TO_DATE('2022-07-01 0:0:0') AND TO_DATE('2024-06-30 23:59:59')
+group by time order by time;
+`)
+
+CHART(
+    chartOption(strSprintf(`{
+        tooltip: {
+            trigger: 'item'
+        },
+       title: {
+            text: '%s',
+            left: 'center'
+        },
+       xAxis: {
+            type: "category",
+          
+            data: column(0)
+        },
+        yAxis: {},
+        series: [
+            {
+                type: "line",
+                data: column(1)
+            }
+        ]
+    }`,param('title') ?? '2 week average for 2 years'))
+)
