@@ -1,0 +1,40 @@
+CREATE RETENTION policy_1d_1h DURATION 1 DAY INTERVAL 1 HOUR;
+
+
+CREATE RETENTION policy_1m_3d DURATION 1 MONTH INTERVAL 3 DAY;
+
+
+SELECT * FROM M$RETENTION;
+
+
+DROP TABLE ret_tag CASCADE;
+CREATE tag TABLE ret_tag (name varchar(20) primary key, time datetime basetime, value double summarized) WITH rollup(min) TAG_PARTITION_COUNT=1;
+
+
+ALTER TABLE tag ADD RETENTION policy_1d_1h;
+
+
+SELECT * FROM V$RETENTION_JOB;
+
+
+SELECT COUNT(*) FROM ret_tag;
+
+
+SELECT * FROM V$RETENTION_JOB;
+
+SELECT COUNT(*) FROM RET_TAG;
+
+
+ALTER TABLE tag DROP RETENTION;
+
+
+ALTER TABLE tag ADD RETENTION policy_1d_1h;
+
+
+DROP RETENTION policy_1d_1h;
+
+
+ALTER TABLE tag DROP RETENTION;
+
+
+DROP RETENTION policy_1d_1h;
