@@ -1,5 +1,5 @@
 DROP TABLE dup_tag;
-CREATE TAG TABLE dup_tag (name varchar(20) primary key, time datetime basetime, value double summarized) TAG_DUPLICATE_CHECK_DURATION=1;
+CREATE TAG TABLE dup_tag (name varchar(20) primary key, time datetime basetime, value double summarized) TAG_DUPLICATE_CHECK_DURATION=14400;
 
 
 INSERT INTO dup_tag VALUES('tag1', '2024-10-01 09:00:00 000:000:001', 0);
